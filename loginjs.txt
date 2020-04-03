@@ -1,0 +1,182 @@
+$(document).ready(function () {
+    VerPass();
+    var user_saved = sessionStorage.getItem('user_saved');
+    var pass_saved = sessionStorage.getItem('pass_saved');
+    var chk_saved = sessionStorage.getItem('chk_saved');
+    $("#user").val(user_saved);
+    $("#password").val(pass_saved);
+    $("#chksaveuser").prop("checked", false);   
+});
+
+function fnpintarpaginas(paginaurl) {
+    var DivContenido = $("#divContenido");
+    $.get("./view/" + paginaurl, function (response) {
+        DivContenido.html(response);
+    });
+}
+
+$("#login_store").click(function () {
+    fnAutenticacion();
+
+});
+
+
+    
+
+
+
+$("#chksaveuser").change(function () {
+   
+
+    if ($("#chksaveuser").prop("checked") == true) {
+        sessionStorage.clear();
+
+        var user_tmp_cookie = $('#user').val();
+        var pass_tmp_cookie = $('#password').val();
+        var chk_cookie = $('#chksaveuser').is(":checked");
+       
+        
+
+        sessionStorage.setItem('user_saved', user_tmp_cookie);
+        sessionStorage.setItem('pass_saved', pass_tmp_cookie);
+        sessionStorage.setItem('chk_saved', chk_cookie);
+    }
+
+
+
+    if ($("#chksaveuser").prop("checked") == false) {
+
+        sessionStorage.clear();
+
+        var chk_cookie = flase;
+        sessionStorage.setItem('chk_saved', chk_cookie);
+        sessionStorage.setItem('user_saved', "");
+        sessionStorage.setItem('pass_saved', "");
+    }
+});
+
+function VerPass() {
+    $('#verpass').mousedown(function () {
+        $('#verpass').removeClass('far fa-eye')
+        $('#verpass').addClass('far fa-eye-slash')
+        $('#password').removeAttr('type');
+    });
+
+    $('#verpass').mouseup(function () {
+        $('#verpass').removeClass('far fa-eye-slash')
+        $('#verpass').addClass('far fa-eye')
+        $('#password').attr('type', 'password');
+    });
+}
+
+function fnAutenticacion1() {
+    if ($("#user").val().length == 0 || $("#password").val().length == 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Los Campos no pueden estar Vacios',
+            text: 'Porfavor Complete los campos para poder Ingresar ala Aplicación',
+        })
+    } else {
+    var user_tmp = $("#user").val();
+    var pass_tmp = $("#password").val();
+
+    $.post("http://192.168.1.79:8123/PAINOSERVICE/app/controller/ControllerCliente.php", "op=get_User&user_tmp=" + user_tmp + "&pass_tmp=" + user_tmp, function (result) {
+        var arregloLogin = JSON.parse(result);
+        console.log(arregloLogin);
+
+        $.post("http://192.168.1.79:8123/PAINOSERVICE/app/controller/ControllerCliente.php", "op=get_UserEstado&user_tmp=" + user_tmp + "&pass_tmp=" + user_tmp, function (result) {
+            var arregloLoginEstado = JSON.parse(result);
+            $.each(arregloLoginEstado, function (idx, item) {
+                if (item.CodEst == "A") {
+
+                    if (arregloLogin.length == 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡La Cuenta o Usuario son Incorrectos!',
+                            text: 'Login',
+                        })
+                    } else {
+                        $.each(arregloLogin, function (idx, item) {
+
+                       
+                            sessionStorage.setItem('PerIdenro', item.PerIdeNro)
+
+
+                            console.log(item.PerTIde);
+                            console.log(item.PerIdeNro);
+
+                            if (item.PerUser != "") {
+                                var url = "Menu/Menu.html"
+                                fnpintarpaginas(url);
+                            }
+                        })
+                    }  
+                } else if (item.CodEst == "B"){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Cuenta Baneada',
+                        text: '',
+                    })
+                } else if (item.CodEst == "D") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Cuenta Deshabilitada',
+                        text: '',
+                    })
+                }
+            })
+        })    
+    })
+  }
+}
+
+
+
+
+
+
+function fnAutenticacion() {
+    if ($("#user").val().length == 0 || $("#password").val().length == 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Los campos estan vacios',
+            text: 'Login',
+        })
+    } else {
+        var user_tmp = $("#user").val();
+        var pass_tmp = $("#password").val();
+
+        $.post("http://192.168.1.79:8123/PAINOSERVICE/app/controller/ControllerCliente.php", "op=get_User&user_tmp=" + user_tmp + "&pass_tmp=" + pass_tmp, function (result) { 
+            var arregloLogin = JSON.parse(result);
+            console.log(arregloLogin);
+
+
+
+            $.each(arregloLogin, function (idx, item) {
+                                                                                                                                             var url = item.url
+                    
+                    sessionStorage.setItem('user_tmp', item.nombre)
+                    sessionStorage.setItem('dni_user', item.PerIdenro)
+                    sessionStorage.setItem('tdoc_user', item.PerTide)
+                    console.log(item.PerIdenro)
+                    console.log(item.PerTide)
+
+                    console.log(item.nombre);
+                    Swal.fire({
+                        icon: 'info',
+                        title: item.mensaje,
+                        text: 'Login',
+                    })
+
+
+                    fnpintarpaginas(url);
+               
+                
+            });
+
+            
+
+            
+        })
+    }
+}
