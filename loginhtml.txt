@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="../../css/Estilos.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title></title>
+
+
+</head>
+<body>
+    <div id="divLogeo" class="center-block">
+        <nav class="top-nav" style="background-color:#c3161c" id="este">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="row">
+                        <div class="col s12 m10 offset-m1" style="text-align:center">
+                            <span class="header" style="font-size:25px">Inicio de sesión</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <br />
+        <img class="center-block" src="../../images/Menu/NotariaPaino.jpg" style="width:50%; height:50%;" />
+
+        <br />
+        <div class="valign-wrapper center-block" style="margin:0;padding:0 19% 0 19%;">
+            <div class="col z-depth-6">
+                <div>
+                    <div class="row">
+                        <!--ELIMINAR AL IDENTIFICAR-->
+                        <input type="hidden" id="tdoc">
+                        <input type="hidden" id="dni">
+                        <input type="hidden" id="us">
+                        <input type="hidden" id="pa">
+
+                        <!--ELIMINAR AL IDENTIFICAR-->
+
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">perm_identity</i>
+                            <input id="user" type="text" name="user">
+                            <label for="user">User</label>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s11">
+                            <i class="material-icons prefix">lock_outline</i>
+                            <input id="password" type="password" name="password">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="row col s1">
+                            <i style="font-size: 20px;float:right;margin-top:26px;" id="verpass" class="far fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <label style="margin-left:30px;">Recordar</label>
+                        </div>
+                        <div class="col s6" >
+                            <div class="switch">
+                                <label>
+                                   
+                                    <input type="checkbox" id="chksaveuser" name="chksaveuser" style="margin-left: 50px;">
+                                    <span class="lever"></span>
+                                  
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <!--onclick="fnpintarpaginas('Menu/Menu.html');"-->
+                            <button id="login_store" class="btn col s12" name="login" style="background:#a73924;">Ingresar</button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!--<label >  </label>-->
+
+            <div class="row">
+                <div class="col s12" style="text-align:center;">
+                    <a onclick="" style="color:#a73924 ;" href="#"><strong>¿Olvidate tu Contraseña?</strong></a>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col s12" style="text-align:center;">
+                    <a onclick="" style="color:#a73924 ;" href="#"><strong>¿No estas registrado?</strong></a>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!--<div class="row" style="background:black;">
+                <div class="col-s3"></div>
+                <div class="col s6">
+                    <label>Copyright 2020 Notaria Paino</label>
+                </div>
+                <div class="col s3"></div>
+            </div> -->
+
+            <br />
+
+
+        </div>
+    </div>
+    <footer style="width:100%; bottom: 0; position: fixed">
+        <div style="text-align:center;">
+            <label style="font-size: .8rem;color: #3b3b3b;">©Copyright 2020 Notaria Paino</label>
+        </div>
+    </footer>
+
+    <script src="scripts/LoginCookies.js">
+    </script>
+</body>
+</html>
